@@ -10,6 +10,45 @@
               };
   })();
 
+  var EventManager = function( object ) {
+    var listeners = [];
+
+    this.dispatch = function( eventName, eventData ) {
+      var theseListeners = listeners[ eventName ];
+      if ( theseListeners ) {
+        var event = {
+          type: eventName,
+          data: eventData
+        };
+        for ( var i=0, l=theseListeners.length; i<l; ++i ) {
+          theseListeners[ i ]( event );
+        } //for
+      } //if
+    }; //dispatch
+
+    object.listen = function( eventName, listener ) {
+      if ( !listeners[ eventName ] ) {
+        listeners[ eventName ] = [];
+      }
+      listeners[ eventName ].push( listener );
+    }; //listen
+
+    object.unlisten = function( eventName, listener ) {
+      var theseListeners = listeners[ eventName ];
+      if ( theseListeners ) {
+        if ( listener ) {
+          var idx = theseListeners.indexOf( listener );
+          if ( idx > -1 ) {
+            theseListeners.splice( idx, 1 );
+          } //if
+        }
+        else {
+          listeners[ eventName ] = [];
+        }
+      } //if
+    }; //unlisten
+  }; //EventManager
+
   var NoProbalo = function( npOptions ) {
 
     var templateNode = document.getElementById( npOptions.template ),
@@ -24,45 +63,6 @@
         otherConnection,
         np = this;
 
-    var EventManager = function( object ) {
-      var listeners = [];
-
-      this.dispatch = function( eventName, eventData ) {
-        var theseListeners = listeners[ eventName ];
-        if ( theseListeners ) {
-          var event = {
-            type: eventName,
-            data: eventData
-          };
-          for ( var i=0, l=theseListeners.length; i<l; ++i ) {
-            theseListeners[ i ]( event );
-          } //for
-        } //if
-      }; //dispatch
-
-      object.listen = function( eventName, listener ) {
-        if ( !listeners[ eventName ] ) {
-          listeners[ eventName ] = [];
-        }
-        listeners[ eventName ].push( listener );
-      }; //listen
-
-      object.unlisten = function( eventName, listener ) {
-        var theseListeners = listeners[ eventName ];
-        if ( theseListeners ) {
-          if ( listener ) {
-            var idx = theseListeners.indexOf( listener );
-            if ( idx > -1 ) {
-              theseListeners.splice( idx, 1 );
-            } //if
-          }
-          else {
-            listeners[ eventName ] = [];
-          }
-        } //if
-      }; //unlisten
-    }; //EventManager
-
     var drawLoop;
     function startDrawLoop() {
       var ctx = nodeCanvas.getContext( "2d" );
@@ -70,15 +70,6 @@
         drawLoop = (function() {
           function loop() {
             if ( drawLoop ) {
-              /*
-              ctx.strokeStyle = "#fff";
-              ctx.lineWidth = 3;
-              ctx.beginPath();
-              for ( var i=0, l=lines.length; i<l; ++i ) {
-                lines[ i ].erase();
-              } //for
-              ctx.stroke();
-              */
               ctx.clearRect( 0, 0, nodeCanvas.width, nodeCanvas.height );
               ctx.strokeStyle = "#000";
               ctx.lineWidth = 1;
