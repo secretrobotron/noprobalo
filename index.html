@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <script type="text/javascript" src="noprobalo.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript">
+      document.addEventListener( 'DOMContentLoaded', function( e ) {
+        var np = NoProbalo({
+              template: "node-template",
+              templateTitle: "node-title",
+              templateBody: "node-body",
+              container: "node-area",
+              canvas: "node-canvas",
+              outputConnectionClass: "node-connection-output",
+              inputConnectionClass: "node-connection-input"
+            });
+
+        var canvas = document.getElementById( "node-canvas" );
+        canvas.addEventListener( "click", function( e ) {
+          if ( e.target !== canvas ) return;
+          np.createNode({
+            position: [ e.clientX, e.clientY ],
+            title: "Node-" + np.numNodes,
+            inputs: {
+              "test-input 1": {
+                "connect": function( e ) {
+                  console.log( "input 1 connected!" );
+                },
+                "disconnect": function( e ) {
+                }
+              },
+              "test-input 2": {
+                "connect": function( e ) {
+                  console.log( "input 2 connected!" );
+                },
+                "disconnect": function( e ) {
+                }
+              }
+            },
+            outputs: {
+              "test-output 1": {
+                "connect": function( e ) {
+                  console.log( "output 1 connected!" );
+                },
+                "disconnect": function( e ) {
+                }
+              },
+              "test-output 2": {
+                "connect": function( e ) {
+                  console.log( "output 2 connected!" );
+                },
+                "disconnect": function( e ) {
+                }
+              }
+            }
+          });
+        }, false );
+      }, false );
+    </script>
+  </head>
+  <body>
+    <div id="node-template" class="node">
+      <div class="node-title">Tepmlate</div>
+      <div class="node-body"></div>
+    </div>
+    <div id="node-area">
+      <canvas id="node-canvas" width="600" height="500"></canvas>
+    </div>
+  </body>
+</html>
