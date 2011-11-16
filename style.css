@@ -1,0 +1,95 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#node-area {
+  width: 1000px;
+  height: 500px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border: 1px solid #000;
+}
+
+.node {
+  min-width: 150px;
+  min-height: 300px;
+  width: 150px;
+  height: 200px;
+  border: 2px solid #000;
+  border-radius: 15px;
+  background: rgba( 190, 190, 190, 0.5 );
+  position: absolute;
+  z-index: 2;
+}
+
+.node-connection-output {
+  position: absolute;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  cursor: pointer;
+}
+.node-connection-output-marker {
+  width: 10px;
+  height: 10px;
+  background: #0f0;
+  float: right;
+}
+.node-connection-output-marker:hover {
+  border: 3px solid #ff0;
+}
+.node-connection-output-title {
+}
+
+.node-connection-input {
+  position: absolute;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  cursor: pointer;
+}
+.node-connection-input-marker {
+  width: 10px;
+  height: 10px;
+  background: #f00;
+  border-radius: 10px;
+  float: left;
+}
+.node-connection-input-marker:hover {
+  border: 3px solid #ff0;
+}
+.node-connection-input-title {
+}
+
+
+
+.node-title {
+  text-align: center;
+  width: 90%;
+  min-height: 18pt;
+  font: 14pt Helvetica;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  border-radius: 15px;
+  background: rgba( 80, 80, 80, 0.5 );
+  position: absolute;
+  left: 5%;
+  top: 5px;
+}
+
+.node-body {
+}
+
+#node-canvas {
+  width: 1000px;
+  height: 500px;
+  z-index: 1;
+}
+
+
